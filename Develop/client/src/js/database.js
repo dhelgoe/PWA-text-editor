@@ -1,6 +1,7 @@
 import { openDB } from 'idb';
 
 const initdb = async () =>
+  console.log('db is running')
   openDB('jate', 1, {
     upgrade(db) {
       if (db.objectStoreNames.contains('jate')) {
@@ -29,10 +30,10 @@ export const getDb = async () => {
   const jateDb = await openDB("jate", 1);
   const tx = jateDb.transaction("jate", "readwrite");
   const store = tx.objectStore("jate");
-  const request = store.get({id:1});
+  const request = store.get(1);
   const result = await request;
-  console.log(result);
-  return result;
+  console.log('result.value', result);
+  return result.value;
 }
 
 initdb();
